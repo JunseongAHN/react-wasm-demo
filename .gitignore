@@ -1,7 +1,17 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.vscode
+.prettierrc
+
+#cmake
+**/CMakeFiles/
+**/.ninja_log
+**/build.ninja
+**/cmake_install.cmake
+**/CMakeCache.txt
+
 # webasm output
-/build
+embinding/build
 
 
 # dependencies
@@ -14,6 +24,7 @@
 
 # production
 /build
+/public
 
 # misc
 .DS_Store
