@@ -1,41 +1,49 @@
-// wasmInit.ts
-
 // Declare a global variable to store the WASM instance
 let wasmInstance: any = null;
 
-// Function to initialize the WASM module
-export const initializeWASM = async (): Promise<any> => {
+declare global {
+  interface Window {
+    createModule: () => Promise<any>;
+  }
+}
+
+// let moduleInstance: any = null; // cache the instance
+
+export const initializeWASM = (): Promise<any> => {
+  // Return cached instance if already initialized
   if (wasmInstance) {
-    // If already initialized, return the existing instance
-    return wasmInstance;
+    return Promise.resolve(wasmInstance);
   }
 
-  try {
-    // Fetch the WASM file
-    const response = await fetch('calc.wasm');
-    
-    if (!response.ok) {
-      throw new Error(`Failed to fetch WASM file: ${response.statusText}`);
+  return new Promise((resolve, reject) => {
+    if (window.createModule) {
+      window
+        .createModule()
+        .then((mod: any) => {
+          wasmInstance = mod;
+          resolve(wasmInstance);
+        })
+        .catch(reject);
+      return;
     }
 
-    // Read the response as an ArrayBuffer
-    const bytes = await response.arrayBuffer();
-
-    // Instantiate the WebAssembly module
-    const { instance } = await WebAssembly.instantiate(bytes, { imports: {} });
-
-    console.log("WASM instance exports:", instance);
-
-    // Store the instance globally
-    wasmInstance = instance.exports;
-
-    return wasmInstance;
-
-  } catch (error) {
-    console.error("Error loading WASM:", error);
-    return null; // Or handle accordingly, depending on your needs
-  }
+    const script = document.createElement('script');
+    script.src = '/calc.js';
+    script.onload = () => {
+      window
+        .createModule()
+        .then((mod: any) => {
+          wasmInstance = mod; // cache it
+          resolve(wasmInstance);
+        })
+        .catch(reject);
+    };
+    script.onerror = () => reject(new Error('Failed to load calc.js'));
+    document.body.appendChild(script);
+  });
 };
+
+// export default initializeWASM;
 
 // Export the WASM instance directly to use it elsewhere
 export const getWasmInstance = (): any => wasmInstance;
