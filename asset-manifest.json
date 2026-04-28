@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-wasm-demo/static/css/main.e6c13ad2.css",
+    "main.js": "/react-wasm-demo/static/js/main.0c7c0902.js",
+    "index.html": "/react-wasm-demo/index.html",
+    "main.e6c13ad2.css.map": "/react-wasm-demo/static/css/main.e6c13ad2.css.map",
+    "main.0c7c0902.js.map": "/react-wasm-demo/static/js/main.0c7c0902.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.0c7c0902.js"
+  ]
+}
