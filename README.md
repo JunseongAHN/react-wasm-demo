@@ -1,8 +1,16 @@
 # react-wasm-demo
 
-A personal learning project exploring **WebAssembly (WASM) via Emscripten** in a React + TypeScript app. It benchmarks C++ functions compiled to WASM against equivalent pure JavaScript implementations, measuring execution time and operation count side by side.
+**WebAssembly (WASM) via Emscripten** in a React + TypeScript app. It benchmarks C++ functions compiled to WASM against equivalent pure JavaScript implementations, measuring execution time and operation count side by side.
+
+[website](https://junseongahn.github.io/react-wasm-demo/)
+
+---
+
+## Result
 
 ![image](images/image.png)
+
+---
 
 ---
 
@@ -99,7 +107,7 @@ cd ..
 npm start
 ```
 
-Open http://localhost:3000
+Open http://localhost:3000/
 
 ---
 
@@ -132,7 +140,7 @@ react-wasm-demo/
 
 ## How It Works
 
-```
+````
 embinding/calc.cxx
 │ emcmake cmake . + ninja
 ▼
@@ -143,29 +151,11 @@ wasmModule (React state)
 ├── model/compareFunctions.ts → ComparisonResult
 ├── model/chartData.ts → ChartPoint[]
 └── view/view.tsx → renders text + recharts chart
-```
-
----
-
-## Key Findings
-
-- **Fibonacci**: JS is often faster than WASM — V8's JIT heavily optimizes simple integer recursion.
-- **Prime Sieve**: WASM wins at `n >= 1,000,000`. Use `std::vector<char>` not `std::vector<bool>` — the latter bit-packs values and is slower.
-
----
-
-## Dependencies
+```## Dependencies
 
 | Package    | Version | Purpose      |
 | ---------- | ------- | ------------ |
 | react      | 19.x    | UI framework |
 | typescript | 5.x     | Type safety  |
 | recharts   | 3.8.1   | Line chart   |
-
----
-
-## Notes
-
-- `performance.memory` is **Chrome only** — shows `N/A` in Firefox/Safari.
-- Keep Fibonacci input below **45** — call count grows as `2^n` and will freeze the browser.
-- `public/calc.js` and `public/calc.wasm` are build artifacts — consider adding to `.gitignore`.
+````
