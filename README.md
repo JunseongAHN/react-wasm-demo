@@ -2,6 +2,8 @@
 
 A personal learning project exploring **WebAssembly (WASM) via Emscripten** in a React + TypeScript app. It benchmarks C++ functions compiled to WASM against equivalent pure JavaScript implementations, measuring execution time and operation count side by side.
 
+![image](images/image.png)
+
 ---
 
 ## Purpose
@@ -90,16 +92,6 @@ calc.wasm ← compiled WASM binary
 | `CMakeLists.txt`         | `emcmake cmake .` then `ninja` |
 | First time after cloning | both                           |
 
-**What the flags mean:**
-
-| Flag                            | Meaning                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------ |
-| `-lembind`                      | Exposes C++ functions to JS via Embind                                   |
-| `-O2`                           | Enables compiler optimizations — critical for fair WASM vs JS comparison |
-| `-s MODULARIZE=1`               | Wraps output in a factory function instead of running on load            |
-| `-s EXPORT_NAME="createModule"` | Names the factory `window.createModule()`                                |
-| `-s ENVIRONMENT=web`            | Strips Node.js-only code, targets browser only                           |
-
 ### 4. Start the app
 
 ```bash
@@ -140,6 +132,7 @@ react-wasm-demo/
 
 ## How It Works
 
+```
 embinding/calc.cxx
 │ emcmake cmake . + ninja
 ▼
@@ -150,6 +143,7 @@ wasmModule (React state)
 ├── model/compareFunctions.ts → ComparisonResult
 ├── model/chartData.ts → ChartPoint[]
 └── view/view.tsx → renders text + recharts chart
+```
 
 ---
 
