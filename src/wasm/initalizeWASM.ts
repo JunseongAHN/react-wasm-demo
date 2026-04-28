@@ -28,7 +28,7 @@ export const initializeWASM = (): Promise<any> => {
     }
 
     const script = document.createElement('script');
-    script.src = '/calc.js';
+    script.src = process.env.PUBLIC_URL + '/calc.js';
     script.onload = () => {
       window
         .createModule()
