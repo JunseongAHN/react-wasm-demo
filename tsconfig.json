@@ -1,27 +1,29 @@
 {
-  "extends": "./node_modules/assemblyscript/tsconfig-base.json",
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx"
-  ],
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
+    // Environment
+    "target": "ES6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+
+    // Module resolution
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
+
+    // Type checking
+    "strict": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Build
     "noEmit": true,
-    "jsx": "react-jsx"
-  }
-  
+    "skipLibCheck": true,
+    "allowJs": true,
+
+    // Extra types (for process.env etc.)
+    "types": ["node"]
+  },
+  "include": ["src"]
 }
